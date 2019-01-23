@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  meeting: one
+  attendee: one
+  is_organizer: false
+
+two:
+  meeting: two
+  attendee: two
+  is_organizer: false

@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Meeting:</strong>
+  <%= @invitation.meeting %>
+</p>
+
+<p>
+  <strong>Attendee:</strong>
+  <%= @invitation.attendee %>
+</p>
+
+<p>
+  <strong>Is organizer:</strong>
+  <%= @invitation.is_organizer %>
+</p>
+
+<%= link_to 'Edit', edit_invitation_path(@invitation) %> |
+<%= link_to 'Back', invitations_path %>
