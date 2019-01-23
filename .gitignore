@@ -1,1 +1,6 @@
 tmp/*
+log/*
+credentials.json
+google_cal_qs.rb
+token.yaml
+
