@@ -17,8 +17,8 @@ class PonderatedAverageScorer < SlotAttendeeScorer
     end
 
     # Attendee features
-    features_result = @features.map { |feature| feature.new(@slot, @attendee).enabled? ? 1 : 0 } [1,0,1,0,1,0,1]
+    features_result = @features.map { |feature| feature.new(@slot, @attendee).enabled? ? 1 : 0 }
     weights = @features_weights.each_with_index { |specific_weight, index| features_result[index] * specific_weight }
     1 - (weights.sum / @features.size)
-  end 
+  end
 end
