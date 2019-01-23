@@ -45,12 +45,12 @@ class GoogleCalendarAdapter
     @service
   end
 
-	def get_meetings(calendar_id='primary', time: Time.now.iso8601, max_results: 10)
+	def get_meetings(calendar_id='primary', time_min: Time.now.iso8601, max_results: 10)
     @service.list_events(calendar_id,
                          max_results: max_results,
                          single_events: true,
                          order_by: 'startTime',
-                         time_min: time)
+                         time_min: time_min)
 	end
 
   def create_meeting(summary, location, description, start_date, end_date, attendees = ['jsmulevici@twistbioscience.com', 'nbenyechiel@twistbioscience.com'])
