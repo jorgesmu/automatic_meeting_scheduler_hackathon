@@ -8,8 +8,14 @@ module TimingHelper
   end
 
   def time_collission(interval1, interval2)
-    return true if after(interval1[:start_time], interval2[:end_time]) && before(interval1[:start_time], interval2[:end_time])
-    return true if after(interval1[:start_time], interval2[:start_time]) && before(interval1[:start_time], interval2[:start_time])
+    return true if time_in_interval(interval2[:start_time], interval1)
+    return true if time_in_interval(interval2[:end_time], interval1)
     false
   end
+
+  def time_in_interval(time, interval)
+    return true if after(interval[:start_time], time) && before(interval[:end_time], time)
+    false
+  end
+
 end

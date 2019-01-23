@@ -1,25 +1,19 @@
 class InterruptionFeature < BaseFeature
-
-  def enabled?
-    @feature_enabled ||= calculate
-  end
-
-  def disabled?
-    !enabled?
-  end
-
+  include MeetingsHelper
   protected
 
   def calculate
-    @feature_enabled ||= is_an_interruption?
-  end
-
-  private
-
-  def is_an_interruption?
-    meeting_free_time = @slot[:start_time] - 1.hour
-    meetings = GoogleCalendarAdapter.new.get_meetings(max_results: 1, time_min: meeting_free_time.iso8601)
-    o
-    meetings.items.size.positive?
+    time_delta = 1.hour
+    pre_no_interruption_interval = {
+        start_time: (@slot[:start_time] - time_delta),
+        end_time: @slot[:start_time]
+    }
+    return true if meetings_in_interval?(pre_no_interruption_interval)
+    post_no_interruption_interval = {
+        start_time: @slot[:end_time],
+        end_time: (@slot[:start_time] + time_delta)
+    }
+    meetings_in_interval?(post_no_interruption_interval)
+    false
   end
 end
