@@ -5,7 +5,7 @@ class SlotScorer
   def initialize(scores)
     @candidate = false
     return if scores.size.zero?
-    overall_scoring = array.inject(0){|sum,x| sum + x } / scores.size
+    overall_scoring = scores.sum / scores.size
     @candidate = overall_scoring >= THRESHOLD
   end
 

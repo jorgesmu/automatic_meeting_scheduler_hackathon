@@ -72,8 +72,8 @@ class GoogleCalendarAdapter
 
   def create_meeting(meeting, slot)
 
-    attendees_payload = meeting.attendees.map do |attendee_email|
-      {email: attendee_email}
+    attendees_payload = meeting.attendees.map do |attendee|
+      {email: attendee.email}
     end
 
     event = Google::Apis::CalendarV3::Event.new(

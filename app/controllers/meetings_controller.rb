@@ -37,6 +37,17 @@ class MeetingsController < ApplicationController
     end
   end
 
+  def schedule
+    meeting = Meeting.find(params['id'])
+    slot = MeetingScheduler.new.schedule(meeting)
+      respond_to do |format|
+      if slot
+        format.json { render json: slot }
+      else
+        format.json { render json: { error: :unable_to_find_a_slot } }
+      end
+    end
+  end
   # PATCH/PUT /meetings/1
   # PATCH/PUT /meetings/1.json
   def update

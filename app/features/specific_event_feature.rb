@@ -4,11 +4,12 @@ class SpecificEventFeature < BaseFeature
 
   def calculate
     meetings = get_events(max_results: max_results, time_min: time_min)
-    looked_meeting = meetings.find { |event| event[:summary].include?(event_name) }
+    looked_meeting = meetings.items.find { |event| event.summary.include?(event_name) }
     return false if looked_meeting.blank?
-    return true if time_in_interval(looked_meeting.dig('start', 'dateTime'), @slot)
-    return true if time_in_interval(looked_meeting.dig('end', 'dateTime'), @slot)
-    false
+    interval = {
+        start_time: DateTime.parse(looked_meeting.start.date_time || looked_meeting.start.date) ,
+        end_time: DateTime.parse(looked_meeting.end.date_time || looked_meeting.end.date) }
+    time_collission(interval, @slot)
   end
 
   def time_min

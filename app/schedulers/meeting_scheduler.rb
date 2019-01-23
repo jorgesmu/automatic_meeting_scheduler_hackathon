@@ -1,11 +1,11 @@
 class MeetingScheduler
   include MeetingsHelper
   def schedule(meeting)
-    slots = [DateTime.now, (DateTime.now + 1.hour)]
+    slots = [{ start_time: DateTime.now, end_time: (DateTime.now + 1.hour)}]
     slot = find_slot(slots, meeting)
     return nil unless slot
     schedule_meeting(meeting, slot)
-    return slot
+    slot
   end
 
   private
@@ -29,6 +29,6 @@ class MeetingScheduler
       global_scorer = SlotScorer.new(scores)
       return slot if global_scorer.approved?
     end
+    nil
   end
-  nil
 end

@@ -5,8 +5,6 @@ class PonderatedAverageScorer < SlotAttendeeScorer
     super(slot, attendee)
   end
 
-  protected
-
   def calculate
     return 0 if @features.size.zero?
 
@@ -16,9 +14,8 @@ class PonderatedAverageScorer < SlotAttendeeScorer
     end
 
     # Attendee features
-    features_result = @features.sum { |feature, weight| feature.new(@slot, @attendee).enabled? ? weight : 0 }
-    weights = features_result.sum
-    maximum_score = @features.sum { |_, weight| weight}
-    1 - (weights.sum / maximum_score)
+    weights = @features.sum { |feature, weight| eval(feature.to_s).new(@slot, @attendee).enabled? ? weight : 0 }
+    maximum_weights = @features.sum { |_, weight| weight}
+    1 - (weights.to_f / maximum_weights)
   end
 end
