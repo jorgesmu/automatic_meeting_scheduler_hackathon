@@ -5,3 +5,4 @@ google_cal_qs.rb
 token.yaml
 *.iml
 .idea
+.DS_Store
