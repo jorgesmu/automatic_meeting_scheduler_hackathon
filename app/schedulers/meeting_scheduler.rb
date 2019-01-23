@@ -12,11 +12,11 @@ class MeetingScheduler
 
   def features
     {
-        # feature: feature_weight
-        InterruptionFeature: 10,
-        CollisionFeature: 6,
-        LunchFeature: 3,
-        VacationFeature: 5
+      # feature: feature_weight
+      InterruptionFeature: 10,
+      CollisionFeature: 6,
+      LunchFeature: 3,
+      VacationFeature: 5
     }
   end
 
