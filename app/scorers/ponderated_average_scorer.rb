@@ -1,7 +1,6 @@
 class PonderatedAverageScorer < SlotAttendeeScorer
-  def initialize(slot, attendee, features, features_weights, attendee_constraints = [])
+  def initialize(slot, attendee, features, attendee_constraints = [])
     @features = features
-    @features_weights = features_weights
     @attendee_constraints = attendee_constraints
     super(slot, attendee)
   end
@@ -17,8 +16,9 @@ class PonderatedAverageScorer < SlotAttendeeScorer
     end
 
     # Attendee features
-    features_result = @features.map { |feature| feature.new(@slot, @attendee).enabled? ? 1 : 0 }
-    weights = @features_weights.each_with_index { |specific_weight, index| features_result[index] * specific_weight }
-    1 - (weights.sum / @features.size)
+    features_result = @features.sum { |feature, weight| feature.new(@slot, @attendee).enabled? ? weight : 0 }
+    weights = features_result.sum
+    maximum_score = @features.sum { |_, weight| weight}
+    1 - (weights.sum / maximum_score)
   end
 end
