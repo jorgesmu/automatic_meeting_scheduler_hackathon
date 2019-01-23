@@ -16,6 +16,8 @@ class GoogleCalendarAdapter
     @service = Google::Apis::CalendarV3::CalendarService.new
     @service.client_options.application_name = APPLICATION_NAME
     @service.authorization = authorize
+    @time_zone = 'Asia/Jerusalem'
+    @attendees = ['jsmulevici@twistbioscience.com', 'nbenyechiel@twistbioscience.com']
   end
   ##
   # Ensure valid credentials, either by restoring from the saved credentials
@@ -53,22 +55,38 @@ class GoogleCalendarAdapter
                          time_min: time_min)
 	end
 
-  def create_meeting(summary, location, description, start_date, end_date, attendees = ['jsmulevici@twistbioscience.com', 'nbenyechiel@twistbioscience.com'])
+  def get_free_busy(time_min, time_max, attendees = @attendees, time_zone = @time_zone, calendar_expansion_max = 50)
+    items_payload = attendees.map do |attendee_email|
+      {id: attendee_email}
+    end
+
+    body = Google::Apis::CalendarV3::FreeBusyRequest.new
+    body.items = items_payload
+    body.time_min = time_min
+    body.time_max = time_max
+    body.calendar_expansion_max = calendar_expansion_max
+    body.time_zone = time_zone
+
+    @service.query_freebusy(body)
+  end
+
+  def create_meeting(summary, location, description, start_date, end_date, time_zone = @time_zone, attendees = @attendees)
 
     attendees_payload = attendees.map do |attendee_email|
       {email: attendee_email}
     end
+
     event = Google::Apis::CalendarV3::Event.new({
       summary: summary,
       location: location,
       description: description,
       start: {
         date_time: start_date,
-        time_zone: 'Asia/Jerusalem',
+        time_zone: time_zone,
       },
       end: {
         date_time: end_date,
-        time_zone: 'Asia/Jerusalem',
+        time_zone: time_zone,
       },
       attendees: attendees_payload,
       #     reminders: {
