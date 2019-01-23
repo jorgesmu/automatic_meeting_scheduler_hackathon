@@ -1,4 +1,4 @@
-class SlotScoring
+class SlotScorer
   THRESHOLD = 0.9
 
   # This first approach for activaction function take each P(p,t) result and apply an average heuristic
