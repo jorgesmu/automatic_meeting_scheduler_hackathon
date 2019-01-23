@@ -14,4 +14,8 @@ module MeetingsHelper
     false
   end
 
+  def schedule_meeting(meeting, slot)
+    GoogleCalendarAdapter.new.create_meeting(meeting, slot)
+  end
+
 end

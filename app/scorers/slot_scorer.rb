@@ -9,7 +9,7 @@ class SlotScorer
     @candidate = overall_scoring >= THRESHOLD
   end
 
-  def candidate?
+  def approved?
     @candidate
   end
 end

@@ -70,23 +70,23 @@ class GoogleCalendarAdapter
     @service.query_freebusy(body)
   end
 
-  def create_meeting(summary, location, description, start_date, end_date, time_zone = @time_zone, attendees = @attendees)
+  def create_meeting(meeting, slot)
 
-    attendees_payload = attendees.map do |attendee_email|
+    attendees_payload = meeting.attendees.map do |attendee_email|
       {email: attendee_email}
     end
 
-    event = Google::Apis::CalendarV3::Event.new({
-      summary: summary,
-      location: location,
-      description: description,
+    event = Google::Apis::CalendarV3::Event.new(
+      summary: meeting.summary,
+      location: meeting.location,
+      description: meeting.description,
       start: {
-        date_time: start_date,
-        time_zone: time_zone,
+        date_time: slot[:start_time],
+        time_zone: @time_zone,
       },
       end: {
-        date_time: end_date,
-        time_zone: time_zone,
+        date_time: slot[:start_time],
+        time_zone: @time_zone,
       },
       attendees: attendees_payload,
       #     reminders: {
@@ -96,7 +96,7 @@ class GoogleCalendarAdapter
       #         {method' => 'popup', 'minutes: 10},
       #     ],
       # },
-    })
+    )
 
     push_meeting(event)
   end

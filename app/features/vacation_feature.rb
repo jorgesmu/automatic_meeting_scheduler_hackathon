@@ -1,4 +1,4 @@
-class LunchFeature < BaseFeature
+class VacationFeature < BaseFeature
   include MeetingsHelper
   protected
 
