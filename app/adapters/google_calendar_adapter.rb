@@ -106,6 +106,6 @@ class GoogleCalendarAdapter
   end
 
 	def push_meeting(event, calendar_id='primary')
-    @service.insert_event(calendar_id, event)
+    @service.insert_event(calendar_id, event, send_updates: 'all')
 	end
 end
