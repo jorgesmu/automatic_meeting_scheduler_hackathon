@@ -3,7 +3,7 @@ class SpecificEventFeature < BaseFeature
   protected
 
   def calculate
-    meetings = get_events(max_results: max_results, time_min: time_min)
+    meetings = get_events(@attendee, max_results: max_results, time_min: time_min)
     looked_meeting = meetings.items.find { |event| event.summary.include?(event_name) }
     return false if looked_meeting.blank?
     interval = {

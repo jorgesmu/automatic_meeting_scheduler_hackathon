@@ -18,7 +18,6 @@ class GoogleCalendarAdapter
     @service.authorization = authorize
     @time_zone = 'Asia/Jerusalem'
     @time_min = Time.now.iso8601
-    @attendees = ['jsmulevici@twistbioscience.com', 'nbenyechiel@twistbioscience.com']
   end
   ##
   # Ensure valid credentials, either by restoring from the saved credentials
@@ -48,23 +47,19 @@ class GoogleCalendarAdapter
     @service
   end
 
-	def get_meetings(calendar_id='primary', time_min: @time_min, max_results: 10)
-    @service.list_events(calendar_id,
+	def get_meetings(attendee, time_min: @time_min, max_results: 10)
+    @service.list_events(attendee.email,
                          max_results: max_results,
                          single_events: true,
                          order_by: 'startTime',
                          time_min: time_min)
   end
 
-  def add_calendar_list(attendees = @attendees)
-
-  end
-
   def get_calendar_list(attendee = 'nbenyechiel@twistbioscience.com')
     @service.get_calendar_list(attendee).items.map &:id
   end
 
-  def get_free_busy(time_min = @time_min, time_max, attendees = @attendees, time_zone = @time_zone, calendar_expansion_max = 50)
+  def get_free_busy(time_max, time_min = @time_min, attendees, time_zone = @time_zone, calendar_expansion_max = 50)
     items_payload = attendees.map do |attendee_email|
       {id: attendee_email}
     end

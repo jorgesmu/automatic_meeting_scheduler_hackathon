@@ -3,6 +3,6 @@ class CollisionFeature < BaseFeature
   private
 
   def calculate
-    meetings_in_interval?(@slot)
+    meetings_in_interval?(@attendee, @slot)
   end
 end
