@@ -41,7 +41,7 @@ class AttendeeFreeSlotGenerator < SlotGeneratorBase
     current_slot_end_time = start_time.clone + duration.minutes
 
     while(current_slot_end_time < end_time)
-      busy_times.calendars.each do |_, busy_intervals|
+      busy_times.calendars.each do |_calendar_id, busy_intervals|
         busy_intervals = busy_intervals.busy
         # Because we have the busy agenda (and not the available) if its a match it means that there is collision and
         # we cant use this slot that why we check that sum(matches) == 0
