@@ -8,7 +8,7 @@ class InterruptionFeature < BaseFeature
         start_time: (@slot[:start_time] - time_delta),
         end_time: @slot[:start_time]
     }
-    return true if meetings_in_interval?(@ttendee, pre_no_interruption_interval)
+    return true if meetings_in_interval?(@attendee, pre_no_interruption_interval)
     post_no_interruption_interval = {
         start_time: @slot[:end_time],
         end_time: (@slot[:start_time] + time_delta)
