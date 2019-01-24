@@ -1,7 +1,7 @@
 class MultiStrategySlotGenerator < SlotGeneratorBase
 
   PARSERS_MAPPER = {
-    start: NowSlotGenerator
+    start: AttendeeFreeSlotGenerator
   }
 
   def initialize(meeting)

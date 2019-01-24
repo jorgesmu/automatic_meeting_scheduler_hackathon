@@ -1,5 +1,5 @@
 class SlotScorer
-  THRESHOLD = 0.1
+  THRESHOLD = 0.5
 
   # This first approach for activaction function take each P(p,t) result and apply an average heuristic
   def initialize(scores)
