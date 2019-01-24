@@ -9,7 +9,7 @@ class SpecificEventFeature < BaseFeature
     interval = {
         start_time: DateTime.parse(looked_meeting.start.date_time || looked_meeting.start.date) ,
         end_time: DateTime.parse(looked_meeting.end.date_time || looked_meeting.end.date) }
-    time_collission(interval, @slot)
+    time_collision(interval, @slot)
   end
 
   def time_min

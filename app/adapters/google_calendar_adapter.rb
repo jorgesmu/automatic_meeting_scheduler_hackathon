@@ -59,7 +59,7 @@ class GoogleCalendarAdapter
     @service.get_calendar_list(attendee).items.map &:id
   end
 
-  def get_free_busy(attendees, time_max, time_min = @time_min, time_zone = @time_zone, calendar_expansion_max = 50)
+  def get_free_busy(attendees, time_zone = @time_zone, calendar_expansion_max = 50, time_max:, time_min: @time_min)
     items_payload = attendees.map do |attendee_email|
       {id: attendee_email}
     end

@@ -14,11 +14,10 @@ module MeetingsHelper
         start_time: (interruption_candidate_meeting.start.date_time || interruption_candidate_meeting.start.date),
         end_time: (interruption_candidate_meeting.end.date_time || interruption_candidate_meeting.end.date)
     }
-    time_collission(interruption_interruption_interval, no_interruption_inteval)
+    time_collision(interruption_interruption_interval, no_interruption_inteval)
   end
 
   def schedule_meeting(meeting, slot)
     GoogleCalendarAdapter.new.create_meeting(meeting, slot)
   end
-
 end

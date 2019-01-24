@@ -7,7 +7,7 @@ module TimingHelper
     t1 >= t2
   end
 
-  def time_collission(interval1, interval2)
+  def time_collision(interval1, interval2)
     time_in_interval(interval2[:start_time], interval1) ||
     time_in_interval(interval2[:end_time], interval1) ||
     time_in_interval(interval1[:start_time], interval2) ||
